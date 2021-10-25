@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <report
+            id="report_session"
+            model="openacademy.session"
+            string="Session Report"
+            name="openacademy.report_session_view"
+            file="openacademy.report_session"
+            report_type="qweb-pdf"/>
+
+
+    <!--                    <div class="page">-->
+    <!--                        Course : <h1 t-field ="doc.course_id"></h1>-->
+    <!--                        Section name :<h2 t-field="doc.name"/>-->
+    <!--                        <p>From <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/></p>-->
+    <!--                        <h3>Attendees:</h3>-->
+    <!--                        <ul>-->
+    <!--                            <t t-foreach="doc.attendee_ids" t-as="attendee">-->
+    <!--                                <li> name : <span t-field="attendee.name"/>-->
+    <!--                                    mobile : <span t-field="attendee.mobile"> </span>-->
+    <!--                                    email : <span t-field="attendee.email"></span>-->
+    <!--                                </li>-->
+    <!--                            </t>-->
+    <!--                        </ul>-->
+    <!--                    </div>-->
+
+
+    <template id="report_session_view">
+
+        <pageTemplate id="main">
+            <pageGraphics>
+                <image file="/addons/report/oo.png" x="6" y="0" width="21.5cm" height="21.5cm"/>
+            </pageGraphics>
+            <frame id="first" x1="78" y1="-3.8cm" width="451" height="698"/>
+        </pageTemplate>
+
+
+        <t t-call="web.external_layout">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div style="
+            background-color: #558877;
+            ">
+                        <div class="row" style="font-size:14px">
+
+                            <div class="col-12">
+
+                                <table border="0" style="width:100%;">
+                                    <tr>
+
+                                        <td colspan="5" style="border: 1px solid black;">
+
+                                            <center>
+                                                <h3 t-field="doc.name"></h3>
+                                            </center>
+
+                                        </td>
+
+                                    </tr>
+
+                                </table>
+
+                            </div>
+                        </div>
+
+
+                        <div class="page">
+                            <div class="oe_structure"/>
+                            <div class="row mt32 mb32" id="informations">
+
+                                <div class="col-auto mw-100 mb-2">
+                                    <strong>Course Name :</strong>
+                                    <p class="m-0" t-field="doc.course_id"/>
+                                </div>
+
+                                <div class="col-auto mw-100 mb-2">
+                                    <strong>Instructor :</strong>
+                                    <p class="m-0" t-field="doc.instructor_id"/>
+                                </div>
+
+                                <div class="col-auto mw-100 mb-2">
+                                    <strong>From :</strong>
+                                    <p class="m-0" t-field="doc.start_date"/>
+                                </div>
+                                <div class="col-auto mw-100 mb-2">
+                                    <strong>To :</strong>
+                                    <p class="m-0" t-field="doc.end_date"/>
+                                </div>
+
+                            </div>
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th name="name" class="text-left">Name</th>
+                                        <th name="mobile" class="text-center">Mobile</th>
+                                        <th name="email" class="text-right">Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.attendee_ids" t-as="attendee">
+                                        <tr>
+                                            <td name="td_name">
+                                                <span t-field="attendee.name"/>
+                                            </td>
+                                            <td name="td_mobile">
+                                                <span t-field="attendee.mobile"></span>
+                                            </td>
+                                            <td name="td_email">
+                                                <span t-field="attendee.email"></span>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
